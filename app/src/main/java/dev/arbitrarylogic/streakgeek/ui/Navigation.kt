@@ -23,14 +23,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import dev.arbitrarylogic.streakgeek.ui.task.TaskScreen
+import dev.arbitrarylogic.streakgeek.ui.habit.AddHabitScreen
+import dev.arbitrarylogic.streakgeek.ui.habit.HabitScreen
 
 @Composable
 fun MainNavigation() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "main") {
-        composable("main") { TaskScreen(modifier = Modifier.padding(16.dp)) }
-        // TODO: Add more destinations
+        composable("main") { HabitScreen(modifier = Modifier.padding(16.dp), navController = navController) }
+        composable("addHabit") { AddHabitScreen(navController = navController) }
     }
 }
+

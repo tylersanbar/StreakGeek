@@ -24,18 +24,19 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Entity
-data class Task(
-    val name: String
-) {
+data class Habit(
     @PrimaryKey(autoGenerate = true)
-    var uid: Int = 0
-}
+    var uid: Int = 0,
+    val name: String,
+    val description: String = "",
+    val dateCreated: Long = System.currentTimeMillis()
+)
 
 @Dao
-interface TaskDao {
-    @Query("SELECT * FROM task ORDER BY uid DESC LIMIT 10")
-    fun getTasks(): Flow<List<Task>>
+interface HabitDao {
+    @Query("SELECT * FROM habit ORDER BY uid DESC LIMIT 10")
+    fun getHabits(): Flow<List<Habit>>
 
     @Insert
-    suspend fun insertTask(item: Task)
+    suspend fun insertHabit(item: Habit)
 }

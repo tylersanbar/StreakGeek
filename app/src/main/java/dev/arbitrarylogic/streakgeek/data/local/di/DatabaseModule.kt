@@ -23,17 +23,40 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dev.arbitrarylogic.streakgeek.data.DefaultHabitInstanceRepository
+import dev.arbitrarylogic.streakgeek.data.DefaultHabitRepository
+import dev.arbitrarylogic.streakgeek.data.HabitInstanceRepository
+import dev.arbitrarylogic.streakgeek.data.HabitRepository
 import dev.arbitrarylogic.streakgeek.data.local.database.AppDatabase
-import dev.arbitrarylogic.streakgeek.data.local.database.TaskDao
+import dev.arbitrarylogic.streakgeek.data.local.database.HabitDao
+import dev.arbitrarylogic.streakgeek.data.local.database.HabitInstanceDao
 import javax.inject.Singleton
 
 
 @Module
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
+
     @Provides
-    fun provideTaskDao(appDatabase: AppDatabase): TaskDao {
-        return appDatabase.taskDao()
+    fun provideHabitDao(appDatabase: AppDatabase): HabitDao {
+        return appDatabase.habitDao()
+    }
+
+    @Provides
+    fun provideHabitInstanceDao(appDatabase: AppDatabase): HabitInstanceDao {
+        return appDatabase.habitInstanceDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideHabitRepository(habitDao: HabitDao): HabitRepository {
+        return DefaultHabitRepository(habitDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHabitInstanceRepository(habitInstanceDao: HabitInstanceDao): HabitInstanceRepository {
+        return DefaultHabitInstanceRepository(habitInstanceDao)
     }
 
     @Provides
@@ -42,7 +65,8 @@ class DatabaseModule {
         return Room.databaseBuilder(
             appContext,
             AppDatabase::class.java,
-            "Task"
+            "Habit"
         ).build()
     }
 }
+

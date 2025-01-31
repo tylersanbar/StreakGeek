@@ -16,34 +16,32 @@
 
 package dev.arbitrarylogic.streakgeek.data.di
 
-import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.arbitrarylogic.streakgeek.data.HabitRepository
+import dev.arbitrarylogic.streakgeek.data.local.database.Habit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import dev.arbitrarylogic.streakgeek.data.TaskRepository
-import dev.arbitrarylogic.streakgeek.data.DefaultTaskRepository
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 interface DataModule {
 
-    @Singleton
-    @Binds
-    fun bindsTaskRepository(
-        taskRepository: DefaultTaskRepository
-    ): TaskRepository
+//    @Singleton
+//    @Binds
+//    fun bindsHabitRepository(
+//        habitRepository: DefaultHabitRepository
+//    ): HabitRepository
 }
 
-class FakeTaskRepository @Inject constructor() : TaskRepository {
-    override val tasks: Flow<List<String>> = flowOf(fakeTasks)
+class FakeHabitRepository @Inject constructor() : HabitRepository {
+    override val habits: Flow<List<Habit>> = flowOf(fakeHabits)
 
-    override suspend fun add(name: String) {
+    override suspend fun add(name: String, description: String) {
         throw NotImplementedError()
     }
 }
 
-val fakeTasks = listOf("One", "Two", "Three")
+val fakeHabits = listOf(Habit(0, "One"), Habit(1, "Two"), Habit(2, "Three"))

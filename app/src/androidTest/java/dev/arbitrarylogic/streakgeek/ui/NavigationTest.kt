@@ -22,7 +22,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Rule
 import org.junit.Test
-import dev.arbitrarylogic.streakgeek.data.di.fakeTasks
+import dev.arbitrarylogic.streakgeek.data.di.fakeHabits
 
 @HiltAndroidTest
 class NavigationTest {
@@ -36,7 +36,7 @@ class NavigationTest {
     @Test
     fun test1() {
         // TODO: Add navigation tests
-        composeTestRule.onNodeWithText(fakeTasks.first(), substring = true).assertExists()
+        composeTestRule.onNodeWithText(fakeHabits.first(), substring = true).assertExists()
     }
 }
 

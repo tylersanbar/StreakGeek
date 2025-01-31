@@ -16,26 +16,25 @@
 
 package dev.arbitrarylogic.streakgeek.data
 
+import dev.arbitrarylogic.streakgeek.data.local.database.Habit
+import dev.arbitrarylogic.streakgeek.data.local.database.HabitDao
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import dev.arbitrarylogic.streakgeek.data.local.database.Task
-import dev.arbitrarylogic.streakgeek.data.local.database.TaskDao
 import javax.inject.Inject
 
-interface TaskRepository {
-    val tasks: Flow<List<String>>
+interface HabitRepository {
+    val habits: Flow<List<Habit>>
 
-    suspend fun add(name: String)
+    suspend fun add(name: String, description: String = "")
 }
 
-class DefaultTaskRepository @Inject constructor(
-    private val taskDao: TaskDao
-) : TaskRepository {
+class DefaultHabitRepository @Inject constructor(
+    private val habitDao: HabitDao
+) : HabitRepository {
 
-    override val tasks: Flow<List<String>> =
-        taskDao.getTasks().map { items -> items.map { it.name } }
+    override val habits: Flow<List<Habit>> =
+        habitDao.getHabits()
 
-    override suspend fun add(name: String) {
-        taskDao.insertTask(Task(name = name))
+    override suspend fun add(name: String, description: String) {
+        habitDao.insertHabit(Habit(name = name, description = description))
     }
 }

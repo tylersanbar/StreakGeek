@@ -16,42 +16,40 @@
 
 package dev.arbitrarylogic.streakgeek.data
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import dev.arbitrarylogic.streakgeek.data.local.database.Habit
+import dev.arbitrarylogic.streakgeek.data.local.database.HabitDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import dev.arbitrarylogic.streakgeek.data.local.database.Task
-import dev.arbitrarylogic.streakgeek.data.local.database.TaskDao
 
 /**
- * Unit tests for [DefaultTaskRepository].
+ * Unit tests for [DefaultHabitRepository].
  */
-@OptIn(ExperimentalCoroutinesApi::class) // TODO: Remove when stable
-class DefaultTaskRepositoryTest {
+class DefaultHabitRepositoryTest {
 
     @Test
     fun tasks_newItemSaved_itemIsReturned() = runTest {
-        val repository = DefaultTaskRepository(FakeTaskDao())
+        val repository = DefaultHabitRepository(FakeHabitDao())
 
         repository.add("Repository")
 
-        assertEquals(repository.tasks.first().size, 1)
+        assertEquals(repository.habits.first().size, 1)
     }
 
 }
 
-private class FakeTaskDao : TaskDao {
+private class FakeHabitDao : HabitDao {
 
-    private val data = mutableListOf<Task>()
+    private val data = mutableListOf<Habit>()
 
-    override fun getTasks(): Flow<List<Task>> = flow {
+    override fun getHabits(): Flow<List<Habit>> = flow {
         emit(data)
     }
 
-    override suspend fun insertTask(item: Task) {
+    override suspend fun insertHabit(item: Habit) {
         data.add(0, item)
     }
 }

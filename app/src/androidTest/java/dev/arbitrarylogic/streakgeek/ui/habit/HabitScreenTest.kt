@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package dev.arbitrarylogic.streakgeek.ui.task
+package dev.arbitrarylogic.streakgeek.ui.habit
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -27,10 +27,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * UI tests for [TaskScreen].
+ * UI tests for [HabitScreen].
  */
 @RunWith(AndroidJUnit4::class)
-class TaskScreenTest {
+class HabitScreenTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
@@ -38,7 +38,7 @@ class TaskScreenTest {
     @Before
     fun setup() {
         composeTestRule.setContent {
-            TaskScreen(FAKE_DATA, onSave = {})
+            HabitScreen(FAKE_DATA, onSave = {})
         }
     }
 

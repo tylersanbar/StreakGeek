@@ -14,43 +14,41 @@
  * limitations under the License.
  */
 
-package dev.arbitrarylogic.streakgeek.ui.task
+package dev.arbitrarylogic.streakgeek.ui.habit
 
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import dev.arbitrarylogic.streakgeek.data.HabitRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import dev.arbitrarylogic.streakgeek.data.TaskRepository
 
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-@OptIn(ExperimentalCoroutinesApi::class) // TODO: Remove when stable
-class TaskViewModelTest {
+class HabitViewModelTest {
     @Test
     fun uiState_initiallyLoading() = runTest {
-        val viewModel = TaskViewModel(FakeTaskRepository())
-        assertEquals(viewModel.uiState.first(), TaskUiState.Loading)
+        val viewModel = HabitViewModel(FakeHabitRepository())
+        assertEquals(viewModel.uiState.first(), HabitUiState.Loading)
     }
 
     @Test
     fun uiState_onItemSaved_isDisplayed() = runTest {
-        val viewModel = TaskViewModel(FakeTaskRepository())
-        assertEquals(viewModel.uiState.first(), TaskUiState.Loading)
+        val viewModel = HabitViewModel(FakeHabitRepository())
+        assertEquals(viewModel.uiState.first(), HabitUiState.Loading)
     }
 }
 
-private class FakeTaskRepository : TaskRepository {
+private class FakeHabitRepository : HabitRepository {
 
     private val data = mutableListOf<String>()
 
-    override val tasks: Flow<List<String>>
+    override val habits: Flow<List<String>>
         get() = flow { emit(data.toList()) }
 
     override suspend fun add(name: String) {

@@ -20,9 +20,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
-import dev.arbitrarylogic.streakgeek.data.TaskRepository
+import dev.arbitrarylogic.streakgeek.data.HabitRepository
 import dev.arbitrarylogic.streakgeek.data.di.DataModule
-import dev.arbitrarylogic.streakgeek.data.di.FakeTaskRepository
+import dev.arbitrarylogic.streakgeek.data.di.FakeHabitRepository
 
 @Module
 @TestInstallIn(
@@ -32,7 +32,7 @@ import dev.arbitrarylogic.streakgeek.data.di.FakeTaskRepository
 interface FakeDataModule {
 
     @Binds
-    abstract fun bindRepository(
-        fakeRepository: FakeTaskRepository
-    ): TaskRepository
+    fun bindRepository(
+        fakeRepository: FakeHabitRepository
+    ): HabitRepository
 }

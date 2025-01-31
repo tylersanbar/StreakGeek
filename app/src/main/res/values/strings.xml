@@ -16,4 +16,5 @@
 
 <resources>
     <string name="app_name">StreakGeek</string>
+    <string name="back_button">Back</string>
 </resources>
